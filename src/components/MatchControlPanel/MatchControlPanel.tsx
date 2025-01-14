@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { useMatches } from "../../context/MatchesContext";
 import { MatchModel } from "../../models/scoreboard";
@@ -56,27 +57,25 @@ const Button = styled.button`
 `;
 
 const Title = styled.h2`
-  color: white;
+  color: #343a40;
   margin-bottom: 20px;
 `;
 
-export const MatchControlPanel = () => {
-  const { matches } = useMatches();
+const MatchControlPanel: React.FC = () => {
+  const { matches, updateScore, finishMatch } = useMatches();
 
-  if (matches.length === 0) {
-    return null;
-  }
+  if (matches.length === 0) return null;
 
-  const handleUpdateScore = (id: string, homeScore: number, awayScore: number) => {
-    console.log(`Updating score for match ${id}: Home ${homeScore}, Away ${awayScore}`);
+  const handleUpdateScore = (matchId: string, homeScore: number, awayScore: number) => {
+    updateScore(matchId, homeScore, awayScore);
   };
 
-  const handleFinishMatch = (id: string) => {
-    console.log(`Finishing match ${id}`);
+  const handleFinishMatch = (matchId: string) => {
+    finishMatch(matchId);
   };
 
   return (
-      <SummaryContainer>
+    <SummaryContainer>
       <Title>Match Control Panel</Title>
       <Table>
         <thead>
