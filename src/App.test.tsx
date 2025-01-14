@@ -31,7 +31,7 @@ describe('App', () => {
     expect(screen.getByText('Start Match')).toBeInTheDocument();
   });
 
-  it('renders app and adds a match to the list when the form is submitted', () => {
+  it('renders app and adds a match to the list with 0-0 score when the form is submitted', () => {
     render(<App />);
     const homeTeamInput = screen.getByPlaceholderText('Home Team');
     const awayTeamInput = screen.getByPlaceholderText('Away Team');
@@ -41,7 +41,16 @@ describe('App', () => {
     fireEvent.change(awayTeamInput, { target: { value: 'Netherlands' } });
     fireEvent.click(startMatchButton);
 
-    expect(screen.getByText('Peru')).toBeInTheDocument();
-    expect(screen.getByText('Netherlands')).toBeInTheDocument();
+    const matchRows = screen.getAllByTestId("match-row");
+    expect(matchRows.length).toBe(6);
+
+    const lastMatchRow = matchRows[5];
+    expect(lastMatchRow).toHaveTextContent("Peru");
+    expect(lastMatchRow).toHaveTextContent("Netherlands");
+
+    const scores = lastMatchRow.querySelectorAll("span");
+    expect(scores[1].textContent).toBe("0");
+    expect(scores[3].textContent).toBe("0");
   });
 })
+
