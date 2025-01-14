@@ -8,6 +8,6 @@ export default defineConfig({
   test: {
     globals: true, // Enables Vitest globals like `expect`
     environment: 'jsdom', // Provides a DOM-like environment
-    setupFiles: './setupTests.ts', // Load global configurations for tests
+    setupFiles: ['./src/setupTests.ts'], // Load global configurations for tests
   },
 });
