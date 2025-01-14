@@ -27,6 +27,7 @@ const Score = styled.span`
 const Scoreboard = ({ matches }: { matches: any[] }) => {
   return (
       <MatchContainer>
+        <h1>Scoreboard</h1>
         {matches.map((match, index) => (
           <MatchRow key={index} data-testid='match-row'>
             <TeamName>{match.homeTeam}</TeamName>

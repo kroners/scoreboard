@@ -1,3 +1,4 @@
+import { createContext, useContext } from 'react';
 import './App.css'
 import AddMatch from './components/AddMatch/AddMatch'
 import Scoreboard from './components/Scoreboard/Scoreboard'
@@ -35,13 +36,28 @@ export const initialMatches = [
   },
 ]
 
+export type MatchesContextType = {
+  matches: typeof initialMatches;
+  setMatches: (matches: typeof initialMatches) => void;
+};
+
+export const MatchesContext = createContext<MatchesContextType | undefined>(undefined);
+
+export const useMatches = () => {
+  const context = useContext(MatchesContext);
+  if (!context) {
+    throw new Error('useMatches must be used within a MatchesProvider');
+  }
+  return context;
+};
+
 function App() {
   return (
-    <>
+    <MatchesContext.Provider value={{ matches: initialMatches, setMatches: () => {} }}>
       <h1>Football Live Scoreboard</h1>
       <AddMatch />
       <Scoreboard matches={initialMatches} />
-    </>
+    </MatchesContext.Provider>
   )
 }
 
