@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import './App.css'
+import { useState } from 'react';
 
 const MatchContainer = styled.div`
   display: flex;
@@ -25,9 +26,7 @@ const Score = styled.span`
   margin: 0 15px;
 `;
 
-function App() {
-
-  const matches = [
+  const oldMatches = [
     {
       homeTeam: 'Mexico',
       awayTeam: 'Canada',
@@ -60,9 +59,25 @@ function App() {
     },
   ]
 
+function App() {
+  const [homeTeam, setHomeTeam] = useState('');
+  const [awayTeam, setAwayTeam] = useState('');
+  const [matches, setMatches] = useState(oldMatches);
+
+  const handleAddMatch = () => {
+    setMatches([...matches, { homeTeam, awayTeam, homeScore: 0, awayScore: 0 }]);
+    setHomeTeam('');
+    setAwayTeam('');
+  }
+
   return (
     <>
       <h1>Football Live Scoreboard</h1>
+      <div>
+        <input type="text" placeholder='Home Team' value={homeTeam} onChange={(e) => setHomeTeam(e.target.value)} />
+        <input type="text" placeholder='Away Team' value={awayTeam} onChange={(e) => setAwayTeam(e.target.value)} />
+        <button onClick={handleAddMatch}>Start Match</button>
+      </div>
       <MatchContainer>
         {matches.map((match, index) => (
           <MatchRow key={index} data-testid='match-row'>
