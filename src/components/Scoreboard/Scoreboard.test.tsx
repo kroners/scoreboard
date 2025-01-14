@@ -1,11 +1,12 @@
-import { describe, expect, it } from "vitest";  
+import { describe, expect, it, vi } from "vitest";  
 import { render, screen } from '@testing-library/react';
 import Scoreboard from './Scoreboard';
 import { initialMatches } from "../../App";
 import { MatchesContext } from '../../App';
+import { MatchModel } from "../../models/scoreboard";
 
 describe('Scoreboard', () => {
-  const mockFinishedMatch = {
+  const mockFinishedMatch: MatchModel = {
     id: '2',
     homeTeam: 'Germany',
     awayTeam: 'France',
@@ -15,14 +16,21 @@ describe('Scoreboard', () => {
     status: 'finished'
   };
 
-  const wrapper = ({ children, matches }: { children: React.ReactNode, matches: any[] }) => (
-    <MatchesContext.Provider value={{ matches, setMatches: () => {} }}>
-      {children}
-    </MatchesContext.Provider>
-  );
+  const renderWithContext = (matches: MatchModel[] = initialMatches) => {
+    return render(
+      <MatchesContext.Provider 
+        value={{ 
+          matches: matches, 
+          setMatches: vi.fn(), 
+        }}
+      >
+        <Scoreboard />
+      </MatchesContext.Provider>
+    );
+  };
 
   it('renders the Scoreboard with matches',  () => {
-    render(<Scoreboard />, { wrapper, matches: [...initialMatches] });
+    renderWithContext();
 
     const matchRow = screen.getAllByTestId('match-row');
     expect(matchRow.length).toBe(5);
@@ -34,12 +42,14 @@ describe('Scoreboard', () => {
   });
 
   it('does not render finished matches', () => {
-    render(<Scoreboard />, { wrapper, matches: [mockFinishedMatch] });
+    renderWithContext([mockFinishedMatch]);
+
     expect(screen.queryByText(/Germany/)).not.toBeInTheDocument();
   });
 
   it('does not render anything when no matches exist', () => {
-    render(<Scoreboard />, { wrapper, matches: [] });
+    renderWithContext([]);
+    
     expect(screen.queryByText('Live Matches')).not.toBeInTheDocument();
   });
 });
