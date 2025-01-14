@@ -1,5 +1,29 @@
-
+import styled from 'styled-components';
 import './App.css'
+
+const MatchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const MatchRow = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+`;
+
+const TeamName = styled.span`
+  flex: 1;
+  font-weight: 500;
+`;
+
+const Score = styled.span`
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0 15px;
+`;
 
 function App() {
 
@@ -39,17 +63,17 @@ function App() {
   return (
     <>
       <h1>Football Live Scoreboard</h1>
-      <div className='match-container'>
+      <MatchContainer>
         {matches.map((match, index) => (
-          <div className='match-row' data-testid='match-row' key={index}>
-            <h2>{match.homeTeam}</h2>
-            <h2>{match.homeScore}</h2>
+          <MatchRow key={index} data-testid='match-row'>
+            <TeamName>{match.homeTeam}</TeamName>
+            <Score>{match.homeScore}</Score>
             <span>-</span>
-            <h2>{match.awayTeam}</h2>
-            <h2>{match.awayScore}</h2>
-          </div>
+            <Score>{match.awayScore}</Score>
+            <TeamName>{match.awayTeam}</TeamName>
+          </MatchRow>
         ))}
-      </div>
+      </MatchContainer>
     </>
   )
 }
