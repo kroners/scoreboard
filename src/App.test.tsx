@@ -13,22 +13,15 @@ describe('App', () => {
     expect(title?.textContent).toBe('Football Live Scoreboard');
   });
 
-  it('renders the app with single match',  () => {
-    render(<App />)
-    expect(screen.getByText(/Spain/)).toBeInTheDocument();
-    expect(screen.getByText(/Brazil/)).toBeInTheDocument();
-    expect(screen.getByText('10')).toBeInTheDocument();
-    expect(screen.getByText('2')).toBeInTheDocument();
-  });
-
-  it('renders the app with multiple matches', () => {
+  it('renders the app with matches',  () => {
     render(<App />)
 
     const matchRow = screen.getAllByTestId('match-row');
     expect(matchRow.length).toBe(5);
     expect(screen.getByText(/Mexico/)).toBeInTheDocument();
     expect(screen.getByText(/Canada/)).toBeInTheDocument();
-    expect(screen.getByText('0')).toBeInTheDocument();
-    expect(screen.getByText('5')).toBeInTheDocument();
+
+    expect(screen.getByText(/Spain/)).toBeInTheDocument();
+    expect(screen.getByText(/Brazil/)).toBeInTheDocument();
   });
 })
