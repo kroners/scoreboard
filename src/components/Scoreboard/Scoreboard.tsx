@@ -31,7 +31,7 @@ const Scoreboard = () => {
   const liveMatches = matches.filter((match: MatchModel) => match.status === 'live');
   return (
       <MatchContainer>
-        <h1>Scoreboard</h1>
+        <h1>Live Matches</h1>
         {liveMatches.map((match: MatchModel, index: number) => (
           <MatchRow key={index} data-testid='match-row'>
             <TeamName>{match.homeTeam}</TeamName>
