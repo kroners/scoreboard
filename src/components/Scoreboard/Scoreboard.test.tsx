@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from "vitest";  
 import { render, screen } from '@testing-library/react';
 import Scoreboard from './Scoreboard';
-import { initialMatches } from "../../App";
-import { MatchesContext } from '../../App';
+import { MatchesContext } from '../../context/MatchesContext';
 import { MatchModel } from "../../models/scoreboard";
+import { initialMatches } from "../../utils/constants";
 
 describe('Scoreboard', () => {
   const mockFinishedMatch: MatchModel = {

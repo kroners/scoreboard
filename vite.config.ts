@@ -6,8 +6,18 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   test: {
-    globals: true, // Enables Vitest globals like `expect`
-    environment: 'jsdom', // Provides a DOM-like environment
-    setupFiles: ['./src/setupTests.ts'], // Load global configurations for tests
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/setupTests.ts'],
+    coverage: {
+      provider: 'v8',
+      exclude: [
+        'src/models/**/*.ts',
+        'vite.config.ts',
+        'eslint.config.js',
+        '.eslintrc.cjs',
+        'src/utils/constants.ts',
+      ]
+    }
   },
 });

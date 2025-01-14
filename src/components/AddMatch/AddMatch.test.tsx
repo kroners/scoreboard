@@ -1,15 +1,17 @@
 import { describe, expect, it, vi } from "vitest";  
 import { render, screen, fireEvent } from '@testing-library/react';
 import AddMatch from './AddMatch';
-import { MatchesContext } from "../../App";
+import { MatchesContext } from "../../context/MatchesContext";
+import { MatchModel } from "../../models/scoreboard";
 
 describe('AddMatch', () => {
   const setMatches = vi.fn();
   const wrapper = ({ children }: { children: React.ReactNode }) => (
-    <MatchesContext.Provider value={{ matches: [], setMatches }}>
+    <MatchesContext.Provider value={{ matches: [] as MatchModel[], setMatches }}>
       {children}
     </MatchesContext.Provider>
   );
+
   it('renders form inputs and button to add a match', () => {
     render(<AddMatch />, { wrapper });
     expect(screen.getByPlaceholderText('Home Team')).toBeInTheDocument();
@@ -28,6 +30,6 @@ describe('AddMatch', () => {
     fireEvent.change(awayInput, { target: { value: 'Brazil' } });
     fireEvent.click(submitButton);
 
-    expect(setMatches).toHaveBeenCalledWith([{ homeTeam: 'Spain', awayTeam: 'Brazil', homeScore: 0, awayScore: 0 }]);
+    expect(setMatches).toHaveBeenCalledWith([{ id: expect.any(String), homeTeam: 'Spain', awayTeam: 'Brazil', homeScore: 0, awayScore: 0, date: expect.any(Date), status: 'live' }]);
   });
 });

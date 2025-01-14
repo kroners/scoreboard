@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { useMatches } from '../../App';
+import { useMatches } from '../../context/MatchesContext';
+import { MatchModel } from '../../models/scoreboard';
 
 const MatchContainer = styled.div`
   display: flex;
@@ -27,10 +28,11 @@ const Score = styled.span`
 
 const Scoreboard = () => {
   const { matches } = useMatches();
+  const liveMatches = matches.filter((match: MatchModel) => match.status === 'live');
   return (
       <MatchContainer>
         <h1>Scoreboard</h1>
-        {matches.map((match, index) => (
+        {liveMatches.map((match: MatchModel, index: number) => (
           <MatchRow key={index} data-testid='match-row'>
             <TeamName>{match.homeTeam}</TeamName>
             <Score>{match.homeScore}</Score>
