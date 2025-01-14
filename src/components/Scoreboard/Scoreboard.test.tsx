@@ -1,11 +1,15 @@
 import { describe, expect, it } from "vitest";  
 import { render, screen } from '@testing-library/react';
 import Scoreboard from './Scoreboard';
-import { initialMatches } from '../../App';
-
+import { initialMatches } from "../../App";
+import { MatchesContext } from '../../App';
 describe('Scoreboard', () => {
   it('renders the app with matches',  () => {
-    render(<Scoreboard matches={initialMatches} />)
+    render(
+      <MatchesContext.Provider value={{ matches: initialMatches, setMatches: () => {} }}>
+        <Scoreboard />
+      </MatchesContext.Provider>
+    )
 
     const matchRow = screen.getAllByTestId('match-row');
     expect(matchRow.length).toBe(5);
