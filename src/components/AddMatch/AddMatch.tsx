@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useMatches } from '../../context/MatchesContext';
-import { v4 as uuidv4 } from 'uuid';
 
 const FormContainer = styled.div`
   width: 100%;
@@ -54,14 +53,13 @@ const Title = styled.h2`
 `;
 
 const AddMatch = () => {
-  const { matches, setMatches } = useMatches();
+  const { addMatch } = useMatches();
   const [homeTeam, setHomeTeam] = useState('');
   const [awayTeam, setAwayTeam] = useState('');
 
   const handleAddMatch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setMatches([...matches, { 
-      id: uuidv4(), homeTeam, awayTeam, homeScore: 0, awayScore: 0, date: new Date(), status: 'live' }]);
+    addMatch(homeTeam, awayTeam);
     setHomeTeam('');
     setAwayTeam('');
   }
