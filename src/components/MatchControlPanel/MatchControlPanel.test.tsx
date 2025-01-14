@@ -35,13 +35,13 @@ describe('MatchControlPanel', () => {
 
   it('renders match summary table when matches exist', () => {
     renderWithContext([mockMatch]);
-    expect(screen.getByText('Match Summary Manager')).toBeInTheDocument();
+    expect(screen.getByText('Match Control Panel')).toBeInTheDocument();
     expect(screen.getByText('Spain - Brazil')).toBeInTheDocument();
   });
 
     it('does not render anything when no matches exist', () => {
     renderWithContext([]);
-    expect(screen.queryByText('Match Summary Manager')).not.toBeInTheDocument();
+    expect(screen.queryByText('Match Control Panel')).not.toBeInTheDocument();
   });
 
   it('updates score when input changes', () => {

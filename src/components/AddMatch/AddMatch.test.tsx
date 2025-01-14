@@ -5,9 +5,11 @@ import { MatchesContext } from "../../context/MatchesContext";
 import { MatchModel } from "../../models/scoreboard";
 
 describe('AddMatch', () => {
-  const addMatch = vi.fn();
+  const mockAddMatch = vi.fn();
+  const mockUpdateScore = vi.fn();
+  const mockFinishMatch = vi.fn();
   const wrapper = ({ children }: { children: React.ReactNode }) => (
-    <MatchesContext.Provider value={{ matches: [] as MatchModel[], addMatch, updateScore: vi.fn(), finishMatch: vi.fn() }}>
+    <MatchesContext.Provider value={{ matches: [] as MatchModel[], addMatch: mockAddMatch, updateScore: mockUpdateScore, finishMatch: mockFinishMatch }}>
       {children}
     </MatchesContext.Provider>
   );
@@ -30,6 +32,6 @@ describe('AddMatch', () => {
     fireEvent.change(awayInput, { target: { value: 'Brazil' } });
     fireEvent.click(submitButton);
 
-    expect(addMatch).toHaveBeenCalledWith('Spain', 'Brazil');
+    expect(mockAddMatch).toHaveBeenCalledWith('Spain', 'Brazil');
   });
 });

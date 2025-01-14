@@ -54,4 +54,10 @@ describe('Scoreboard', () => {
     
     expect(screen.queryByText('Live Matches')).not.toBeInTheDocument();
   });
+
+  it('does not render anything when only finished matches exist', () => {
+    renderWithContext([mockFinishedMatch]);
+    
+    expect(screen.queryByText('Live Matches')).not.toBeInTheDocument();
+  });
 });
