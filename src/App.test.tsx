@@ -1,6 +1,5 @@
-import React from 'react';
 import { describe, expect, it } from "vitest";
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from "./App";
 
 describe('App', () => {
@@ -23,5 +22,26 @@ describe('App', () => {
 
     expect(screen.getByText(/Spain/)).toBeInTheDocument();
     expect(screen.getByText(/Brazil/)).toBeInTheDocument();
+  });
+
+  it('renders form inputs and button to add a match', () => {
+    render(<App />);
+    expect(screen.getByPlaceholderText('Home Team')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Away Team')).toBeInTheDocument();
+    expect(screen.getByText('Start Match')).toBeInTheDocument();
+  });
+
+  it('renders app and adds a match to the list when the form is submitted', () => {
+    render(<App />);
+    const homeTeamInput = screen.getByPlaceholderText('Home Team');
+    const awayTeamInput = screen.getByPlaceholderText('Away Team');
+    const startMatchButton = screen.getByText('Start Match');
+
+    fireEvent.change(homeTeamInput, { target: { value: 'Peru' } });
+    fireEvent.change(awayTeamInput, { target: { value: 'Netherlands' } });
+    fireEvent.click(startMatchButton);
+
+    expect(screen.getByText('Peru')).toBeInTheDocument();
+    expect(screen.getByText('Netherlands')).toBeInTheDocument();
   });
 })
