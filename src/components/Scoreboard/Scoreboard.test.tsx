@@ -3,9 +3,18 @@ import { render, screen } from '@testing-library/react';
 import Scoreboard from './Scoreboard';
 import { MatchesContext } from '../../context/MatchesContext';
 import { MatchModel } from "../../models/scoreboard";
-import { initialMatches } from "../../utils/constants";
 
 describe('Scoreboard', () => {
+  const mockLiveMatch: MatchModel = {
+    id: '1',
+    homeTeam: 'Spain',
+    awayTeam: 'Brazil',
+    homeScore: 2,
+    awayScore: 1,
+    date: new Date(),
+    status: 'live'
+  };
+
   const mockFinishedMatch: MatchModel = {
     id: '2',
     homeTeam: 'Germany',
@@ -16,7 +25,7 @@ describe('Scoreboard', () => {
     status: 'finished'
   };
 
-  const renderWithContext = (matches: MatchModel[] = initialMatches) => {
+  const renderWithContext = (matches: MatchModel[] = [mockLiveMatch, mockFinishedMatch]) => {
     return render(
       <MatchesContext.Provider 
         value={{ 
@@ -35,18 +44,18 @@ describe('Scoreboard', () => {
     renderWithContext();
 
     const matchRow = screen.getAllByTestId('match-row');
-    expect(matchRow.length).toBe(5);
-    expect(screen.getByText(/Mexico/)).toBeInTheDocument();
-    expect(screen.getByText(/Canada/)).toBeInTheDocument();
-
+    expect(matchRow.length).toBe(1);
     expect(screen.getByText(/Spain/)).toBeInTheDocument();
     expect(screen.getByText(/Brazil/)).toBeInTheDocument();
+    expect(screen.getByText(/2/)).toBeInTheDocument();
+    expect(screen.getByText(/1/)).toBeInTheDocument();
   });
 
-  it('does not render finished matches', () => {
+  it('does not render anything nor finished matches', () => {
     renderWithContext([mockFinishedMatch]);
 
     expect(screen.queryByText(/Germany/)).not.toBeInTheDocument();
+    expect(screen.queryByText('Live Matches')).not.toBeInTheDocument();
   });
 
   it('does not render anything when no matches exist', () => {
@@ -55,9 +64,42 @@ describe('Scoreboard', () => {
     expect(screen.queryByText('Live Matches')).not.toBeInTheDocument();
   });
 
-  it('does not render anything when only finished matches exist', () => {
-    renderWithContext([mockFinishedMatch]);
+  it('orders matches by total score', () => {
+    const mockLiveMatch2: MatchModel = {
+      id: '3',
+      homeTeam: 'Germany',
+      awayTeam: 'France',
+      homeScore: 2,
+      awayScore: 2,
+      date: new Date('2024-10-02T10:00:00Z'),
+      status: 'live'
+    };
+
+    const matches = [mockLiveMatch, mockLiveMatch2];
+    renderWithContext(matches);
     
-    expect(screen.queryByText('Live Matches')).not.toBeInTheDocument();
+    const matchElements = screen.getAllByTestId(/match-/);
+    expect(matchElements[0]).toHaveTextContent('Germany');
+    expect(matchElements[1]).toHaveTextContent('Spain');
+  });
+
+
+  it('orders matches by creation date when scores are equal', () => {
+    const mockLiveMatch3: MatchModel = {
+      id: '4',
+      homeTeam: 'Italy',
+      awayTeam: 'Netherlands',
+      homeScore: 2,
+      awayScore: 1,
+      date: new Date('2023-10-03T10:00:00Z'),
+      status: 'live'
+    };
+
+    const matches = [mockLiveMatch3, mockLiveMatch];
+    renderWithContext(matches);
+    
+    const matchElements = screen.getAllByTestId(/match-/);
+    expect(matchElements[0]).toHaveTextContent('Spain');
+    expect(matchElements[1]).toHaveTextContent('Italy');
   });
 });
