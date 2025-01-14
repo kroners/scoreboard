@@ -18,7 +18,7 @@ describe('AddMatch', () => {
     render(<AddMatch />, { wrapper });
     expect(screen.getByPlaceholderText('Home Team')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Away Team')).toBeInTheDocument();
-    expect(screen.getByText('Start Match')).toBeInTheDocument();
+    expect(screen.getByText('Add New Match')).toBeInTheDocument();
   });
 
   it('submits form with team names', () => {
@@ -26,7 +26,7 @@ describe('AddMatch', () => {
     
     const homeInput = screen.getByPlaceholderText('Home Team');
     const awayInput = screen.getByPlaceholderText('Away Team');
-    const submitButton = screen.getByText('Start Match');
+    const submitButton = screen.getByText('Add Match');
 
     fireEvent.change(homeInput, { target: { value: 'Spain' } });
     fireEvent.change(awayInput, { target: { value: 'Brazil' } });

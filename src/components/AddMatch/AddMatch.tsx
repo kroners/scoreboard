@@ -52,7 +52,7 @@ const Title = styled.h2`
   margin-bottom: 20px;
 `;
 
-const AddMatch = () => {
+const AddMatch: React.FC = () => {
   const { addMatch } = useMatches();
   const [homeTeam, setHomeTeam] = useState('');
   const [awayTeam, setAwayTeam] = useState('');
@@ -66,10 +66,10 @@ const AddMatch = () => {
   return (
       <FormContainer>
         <Form onSubmit={handleAddMatch}>
-          <Title>Add Match</Title>
+          <Title>Add New Match</Title>
           <Input type="text" placeholder='Home Team' value={homeTeam} onChange={(e) => setHomeTeam(e.target.value)} required />
           <Input type="text" placeholder='Away Team' value={awayTeam} onChange={(e) => setAwayTeam(e.target.value)} required />
-          <Button type="submit">Start Match</Button>
+          <Button type="submit">Add Match</Button>
         </Form>
       </FormContainer>
   )

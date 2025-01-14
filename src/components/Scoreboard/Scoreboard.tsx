@@ -26,9 +26,12 @@ const Score = styled.span`
   margin: 0 15px;
 `;
 
-const Scoreboard = () => {
+const Scoreboard: React.FC = () => {
   const { matches } = useMatches();
   const liveMatches = matches.filter((match: MatchModel) => match.status === 'live');
+
+  if (liveMatches.length === 0) return null;
+
   return (
       <MatchContainer>
         <h1>Live Matches</h1>

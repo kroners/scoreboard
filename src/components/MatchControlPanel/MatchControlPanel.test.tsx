@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { MatchesContext } from "../../context/MatchesContext";
 import { expect, vi, describe, it } from "vitest";
 import { MatchModel } from "../../models/scoreboard";
-import { MatchControlPanel } from "./MatchControlPanel";
+import MatchControlPanel from "./MatchControlPanel";
 
 describe('MatchControlPanel', () => {
   const mockUpdateScore = vi.fn();
@@ -24,8 +24,8 @@ describe('MatchControlPanel', () => {
         value={{
           matches,
           addMatch: vi.fn(),
-          updateScore: vi.fn(),
-          finishMatch: vi.fn(),
+          updateScore: mockUpdateScore,
+          finishMatch: mockFinishMatch,
         }}
       >
         <MatchControlPanel />

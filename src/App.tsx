@@ -1,15 +1,22 @@
 import { useState } from 'react';
+import styled from 'styled-components';
 import './App.css'
 import AddMatch from './components/AddMatch/AddMatch'
 import Scoreboard from './components/Scoreboard/Scoreboard'
+import MatchControlPanel from './components/MatchControlPanel/MatchControlPanel';
 import { MatchModel } from './models/scoreboard';
-import { initialMatches } from './utils/constants';
+// import { initialMatches } from './utils/constants';
 import { MatchesContext } from './context/MatchesContext';
-import { MatchControlPanel } from './components/MatchControlPanel/MatchControlPanel';
 import { ScoreboardService } from './services/scoreboardService';
 
+const Title = styled.h1`
+  text-align: center;
+  color: #343a40;
+  margin-bottom: 30px;
+`;
+
 function App() {
-  const [matches, setMatches] = useState<MatchModel[]>(initialMatches);
+  const [matches, setMatches] = useState<MatchModel[]>([]);
   const scoreboardService = new ScoreboardService();
 
   const addMatch = (homeTeam: string, awayTeam: string) => {
@@ -26,7 +33,7 @@ function App() {
 
   return (
     <MatchesContext.Provider value={{ matches, addMatch, updateScore, finishMatch }}>
-      <h1>Football Live Scoreboard</h1>
+      <Title>Live Football World Cup Scoreboard</Title>
       <AddMatch /> 
       <Scoreboard />
       <MatchControlPanel />

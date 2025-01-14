@@ -18,7 +18,7 @@ describe('App', () => {
     const title = document.querySelector('h1');
 
     expect(title).not.toBeNull();
-    expect(title?.textContent).toBe('Football Live Scoreboard');
+    expect(title?.textContent).toBe('Live Football World Cup Scoreboard');
   });
 
   it('renders Add Match section only when no matches exist', () => {
@@ -48,7 +48,7 @@ describe('App', () => {
 
     expect(screen.getByText('Live Football World Cup Scoreboard')).toBeInTheDocument();
     expect(screen.getByText('Live Matches')).toBeInTheDocument();
-    expect(screen.getByText('Match Summary Manager')).toBeInTheDocument();
+    expect(screen.getByText('Match Control Panel')).toBeInTheDocument();
     expect(screen.getByText(homeTeam)).toBeInTheDocument();
     expect(screen.getByText(awayTeam)).toBeInTheDocument();
   });
@@ -71,9 +71,9 @@ describe('App', () => {
     });
 
     const matchRows = screen.getAllByTestId("match-row");
-    expect(matchRows.length).toBe(6);
+    expect(matchRows.length).toBe(1);
 
-    const lastMatchRow = matchRows[5];
+    const lastMatchRow = matchRows[0];
     expect(lastMatchRow).toHaveTextContent(homeTeam);
     expect(lastMatchRow).toHaveTextContent(awayTeam);
 
