@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.39% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/46</span>
+                <span class='fraction'>46/46</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.39% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/46</span>
+                <span class='fraction'>46/46</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -157,25 +157,25 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,26 +214,26 @@ describe('App', () =&gt; {
     expect(scoreboard).toBeInTheDocument();
   });
 &nbsp;
-  it.todo('renders app and adds a match to the list with 0-0 score when the form is submitted', () =&gt; {
-<span class="cstat-no" title="statement not covered" >    render(&lt;App /&gt;);</span>
-<span class="cstat-no" title="statement not covered" >    const homeTeamInput = screen.getByPlaceholderText('Home Team');</span>
-<span class="cstat-no" title="statement not covered" >    const awayTeamInput = screen.getByPlaceholderText('Away Team');</span>
-<span class="cstat-no" title="statement not covered" >    const startMatchButton = screen.getByText('Start Match');</span>
+  it('renders app and adds a match to the list with 0-0 score when the form is submitted', () =&gt; {
+    render(&lt;App /&gt;);
+    const homeTeamInput = screen.getByPlaceholderText('Home Team');
+    const awayTeamInput = screen.getByPlaceholderText('Away Team');
+    const startMatchButton = screen.getByText('Start Match');
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    fireEvent.change(homeTeamInput, { target: { value: 'Peru' } });</span>
-<span class="cstat-no" title="statement not covered" >    fireEvent.change(awayTeamInput, { target: { value: 'Netherlands' } });</span>
-<span class="cstat-no" title="statement not covered" >    fireEvent.click(startMatchButton);</span>
+    fireEvent.change(homeTeamInput, { target: { value: 'Peru' } });
+    fireEvent.change(awayTeamInput, { target: { value: 'Netherlands' } });
+    fireEvent.click(startMatchButton);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const matchRows = screen.getAllByTestId("match-row");</span>
-<span class="cstat-no" title="statement not covered" >    expect(matchRows.length).toBe(6);</span>
+    const matchRows = screen.getAllByTestId("match-row");
+    expect(matchRows.length).toBe(6);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const lastMatchRow = matchRows[5];</span>
-<span class="cstat-no" title="statement not covered" >    expect(lastMatchRow).toHaveTextContent("Peru");</span>
-<span class="cstat-no" title="statement not covered" >    expect(lastMatchRow).toHaveTextContent("Netherlands");</span>
+    const lastMatchRow = matchRows[5];
+    expect(lastMatchRow).toHaveTextContent("Peru");
+    expect(lastMatchRow).toHaveTextContent("Netherlands");
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const scores = lastMatchRow.querySelectorAll("span");</span>
-<span class="cstat-no" title="statement not covered" >    expect(scores[1].textContent).toBe("0");</span>
-<span class="cstat-no" title="statement not covered" >    expect(scores[3].textContent).toBe("0");</span>
+    const scores = lastMatchRow.querySelectorAll("span");
+    expect(scores[1].textContent).toBe("0");
+    expect(scores[3].textContent).toBe("0");
   });
 })
 &nbsp;
@@ -244,7 +244,7 @@ describe('App', () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-01-14T18:46:50.351Z
+                at 2025-01-14T19:09:56.322Z
             </div>
         <script src="../prettify.js"></script>
         <script>

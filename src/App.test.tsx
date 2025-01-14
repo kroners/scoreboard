@@ -33,7 +33,7 @@ describe('App', () => {
     expect(scoreboard).toBeInTheDocument();
   });
 
-  it.todo('renders app and adds a match to the list with 0-0 score when the form is submitted', () => {
+  it('renders app and adds a match to the list with 0-0 score when the form is submitted', () => {
     render(<App />);
     const homeTeamInput = screen.getByPlaceholderText('Home Team');
     const awayTeamInput = screen.getByPlaceholderText('Away Team');

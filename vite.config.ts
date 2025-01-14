@@ -12,10 +12,11 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       exclude: [
-        'src/models/**/*.ts',
         'vite.config.ts',
         'eslint.config.js',
-        '.eslintrc.cjs',
+        'src/main.tsx',
+        'src/vite-env.d.ts',
+        'src/models/**/*.ts',
         'src/utils/constants.ts',
       ]
     }
