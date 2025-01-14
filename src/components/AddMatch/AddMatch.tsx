@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { initialMatches } from '../../App';
+import { useMatches } from '../../App';
 
 const FormContainer = styled.div`
   width: 100%;
@@ -52,9 +52,9 @@ const Title = styled.h2`
   margin-bottom: 20px;
 `;
 const AddMatch = () => {
+  const { matches, setMatches } = useMatches();
   const [homeTeam, setHomeTeam] = useState('');
   const [awayTeam, setAwayTeam] = useState('');
-  const [matches, setMatches] = useState(initialMatches);
 
   const handleAddMatch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import './App.css'
 import AddMatch from './components/AddMatch/AddMatch'
 import Scoreboard from './components/Scoreboard/Scoreboard'
@@ -52,11 +52,12 @@ export const useMatches = () => {
 };
 
 function App() {
+  const [matches, setMatches] = useState(initialMatches);
   return (
-    <MatchesContext.Provider value={{ matches: initialMatches, setMatches: () => {} }}>
+    <MatchesContext.Provider value={{ matches, setMatches }}>
       <h1>Football Live Scoreboard</h1>
       <AddMatch />
-      <Scoreboard matches={initialMatches} />
+      <Scoreboard />
     </MatchesContext.Provider>
   )
 }

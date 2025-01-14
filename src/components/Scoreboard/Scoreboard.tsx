@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useMatches } from '../../App';
 
 const MatchContainer = styled.div`
   display: flex;
@@ -24,7 +25,8 @@ const Score = styled.span`
   margin: 0 15px;
 `;
 
-const Scoreboard = ({ matches }: { matches: any[] }) => {
+const Scoreboard = () => {
+  const { matches } = useMatches();
   return (
       <MatchContainer>
         <h1>Scoreboard</h1>
