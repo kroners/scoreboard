@@ -102,4 +102,10 @@ describe('Scoreboard', () => {
     expect(matchElements[0]).toHaveTextContent('Spain');
     expect(matchElements[1]).toHaveTextContent('Italy');
   });
+
+  it('shows live indicator for in-progress matches', () => {
+    renderWithContext([mockLiveMatch]);
+    
+    expect(screen.getByTestId('live-indicator')).toBeInTheDocument();
+  });
 });

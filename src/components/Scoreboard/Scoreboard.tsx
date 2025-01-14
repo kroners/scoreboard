@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useMatches } from '../../context/MatchesContext';
 import { MatchModel } from '../../models/scoreboard';
 
@@ -26,6 +26,21 @@ const Score = styled.span`
   margin: 0 15px;
 `;
 
+const blink = keyframes`
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+`;
+
+const LiveIndicator = styled.div`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+  margin-left: 10px;
+  animation: ${blink} 1s infinite;
+`;
+
 const Scoreboard: React.FC = () => {
   const { matches } = useMatches();
   const liveMatches = matches.filter((match: MatchModel) => match.status === 'live')
@@ -49,6 +64,7 @@ const Scoreboard: React.FC = () => {
             <span>-</span>
             <Score>{match.awayScore}</Score>
             <TeamName>{match.awayTeam}</TeamName>
+            {match.status === 'live' && <LiveIndicator data-testid="live-indicator" />}
           </MatchRow>
         ))}
       </MatchContainer>
