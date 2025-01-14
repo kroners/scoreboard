@@ -37,11 +37,11 @@ describe('App', () => {
     render(<App />);
     const homeTeamInput = screen.getByPlaceholderText('Home Team');
     const awayTeamInput = screen.getByPlaceholderText('Away Team');
-    const startMatchButton = screen.getByText('Start Match');
+    const addMatchButton = screen.getByText('Add Match');
 
     fireEvent.change(homeTeamInput, { target: { value: 'Peru' } });
     fireEvent.change(awayTeamInput, { target: { value: 'Netherlands' } });
-    fireEvent.click(startMatchButton);
+    fireEvent.click(addMatchButton);
 
     const matchRows = screen.getAllByTestId("match-row");
     expect(matchRows.length).toBe(6);

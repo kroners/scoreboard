@@ -23,7 +23,9 @@ describe('MatchControlPanel', () => {
       <MatchesContext.Provider
         value={{
           matches,
-          setMatches: vi.fn(),
+          addMatch: vi.fn(),
+          updateScore: vi.fn(),
+          finishMatch: vi.fn(),
         }}
       >
         <MatchControlPanel />

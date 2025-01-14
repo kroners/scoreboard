@@ -5,9 +5,9 @@ import { MatchesContext } from "../../context/MatchesContext";
 import { MatchModel } from "../../models/scoreboard";
 
 describe('AddMatch', () => {
-  const setMatches = vi.fn();
+  const addMatch = vi.fn();
   const wrapper = ({ children }: { children: React.ReactNode }) => (
-    <MatchesContext.Provider value={{ matches: [] as MatchModel[], setMatches }}>
+    <MatchesContext.Provider value={{ matches: [] as MatchModel[], addMatch, updateScore: vi.fn(), finishMatch: vi.fn() }}>
       {children}
     </MatchesContext.Provider>
   );
@@ -30,6 +30,6 @@ describe('AddMatch', () => {
     fireEvent.change(awayInput, { target: { value: 'Brazil' } });
     fireEvent.click(submitButton);
 
-    expect(setMatches).toHaveBeenCalledWith([{ id: expect.any(String), homeTeam: 'Spain', awayTeam: 'Brazil', homeScore: 0, awayScore: 0, date: expect.any(Date), status: 'live' }]);
+    expect(addMatch).toHaveBeenCalledWith('Spain', 'Brazil');
   });
 });

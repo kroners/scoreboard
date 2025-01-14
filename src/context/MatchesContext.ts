@@ -3,7 +3,9 @@ import { MatchModel } from '../models/scoreboard';
 
 export type MatchesContextType = {
   matches: MatchModel[];
-  setMatches: (matches: MatchModel[]) => void;
+  addMatch: (homeTeam: string, awayTeam: string) => void;
+  updateScore: (matchId: string, homeScore: number, awayScore: number) => void;
+  finishMatch: (matchId: string) => void;
 };
 
 export const MatchesContext = createContext<MatchesContextType | undefined>(undefined);

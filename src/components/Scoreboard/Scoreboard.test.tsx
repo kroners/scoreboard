@@ -21,7 +21,9 @@ describe('Scoreboard', () => {
       <MatchesContext.Provider 
         value={{ 
           matches: matches, 
-          setMatches: vi.fn(), 
+          addMatch: vi.fn(), 
+          updateScore: vi.fn(), 
+          finishMatch: vi.fn() 
         }}
       >
         <Scoreboard />
