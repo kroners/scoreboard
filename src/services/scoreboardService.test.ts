@@ -10,19 +10,20 @@ describe('ScoreboardService', () => {
   });
 
   it('starts a new match', () => {
-    const matches = scoreboardService.addMatch('Spain', 'Brazil');
+    const matches = scoreboardService.addMatch([], 'Spain', 'Brazil');
     expect(matches[0].homeTeam).toBe('Spain');
     expect(matches[0].awayTeam).toBe('Brazil');
     expect(matches[0].status).toBe('live');
   });
 
   it('throws an error when trying to update a score for empty scoreboard', () => {
-    const matches = [];
+    const matches: MatchModel[] = [];
     expect(() => scoreboardService.updateScore(matches, 'some-id', 2, 1)).toThrow('Matches not found');
   });
 
   it('updates match score', () => {
-    const matches = scoreboardService.addMatch('Spain', 'Brazil');
+    let matches: MatchModel[] = [];
+    matches = scoreboardService.addMatch(matches, 'Spain', 'Brazil');
     const updatedMatches = scoreboardService.updateScore(matches, matches[0].id, 2, 1);
 
     expect(updatedMatches[0].homeScore).toBe(2);
@@ -31,8 +32,8 @@ describe('ScoreboardService', () => {
 
   it('updates 3rd match score', () => {
     let matches: MatchModel[] = [];
-     matches = scoreboardService.addMatch('Spain', 'Brazil');
-    matches = scoreboardService.addMatch('Mexico', 'Canada');
+    matches = scoreboardService.addMatch(matches, 'Spain', 'Brazil');
+    matches = scoreboardService.addMatch(matches, 'Mexico', 'Canada');
     const updatedMatches = scoreboardService.updateScore(matches, matches[1].id, 2, 1);
 
     expect(updatedMatches[1].homeScore).toBe(2);
@@ -42,25 +43,28 @@ describe('ScoreboardService', () => {
   });
 
   it('throws an error when updating a finished match', () => {
-    const matches = scoreboardService.addMatch('Spain', 'Brazil');
+    let matches: MatchModel[] = [];
+    matches = scoreboardService.addMatch(matches, 'Spain', 'Brazil');
     const updatedMatches = scoreboardService.finishMatch(matches, matches[0].id);
     expect(() => scoreboardService.updateScore(updatedMatches, updatedMatches[0].id, 2, 1)).toThrow('Cannot update finished match');
   });
 
   it('throws an error when updating a non-existent match', () => {
-    const matches = scoreboardService.addMatch('Spain', 'Brazil');
+    let matches: MatchModel[] = [];
+    matches = scoreboardService.addMatch(matches, 'Spain', 'Brazil');
     expect(() => scoreboardService.updateScore(matches, 'invalid-id', 2, 1)).toThrow('Match not found');
   });
 
   it('throws an error when updating with negative scores', () => {
-    const matches = scoreboardService.addMatch('Spain', 'Brazil');
+    let matches: MatchModel[] = [];
+    matches = scoreboardService.addMatch(matches, 'Spain', 'Brazil');
     expect(() => scoreboardService.updateScore(matches, matches[0].id, -1, 1)).toThrow('Scores cannot be negative');
   });
 
   it('changes match status to finished', () => {
     let matches: MatchModel[] = [];
-    matches = scoreboardService.addMatch('Spain', 'Brazil');
-    matches = scoreboardService.addMatch('Mexico', 'Canada');
+    matches = scoreboardService.addMatch(matches, 'Spain', 'Brazil');
+    matches = scoreboardService.addMatch(matches, 'Mexico', 'Canada');
     const updatedMatches = scoreboardService.finishMatch(matches, matches[0].id);
 
     const finishedMatch = updatedMatches.find(m => m.id === matches[0].id);
