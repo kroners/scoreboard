@@ -51,6 +51,7 @@ const Title = styled.h2`
   color: #343a40;
   margin-bottom: 20px;
 `;
+
 const AddMatch = () => {
   const { matches, setMatches } = useMatches();
   const [homeTeam, setHomeTeam] = useState('');
@@ -66,8 +67,8 @@ const AddMatch = () => {
       <FormContainer>
         <Form onSubmit={handleAddMatch}>
           <Title>Add Match</Title>
-          <Input type="text" placeholder='Home Team' value={homeTeam} onChange={(e) => setHomeTeam(e.target.value)} />
-          <Input type="text" placeholder='Away Team' value={awayTeam} onChange={(e) => setAwayTeam(e.target.value)} />
+          <Input type="text" placeholder='Home Team' value={homeTeam} onChange={(e) => setHomeTeam(e.target.value)} required />
+          <Input type="text" placeholder='Away Team' value={awayTeam} onChange={(e) => setAwayTeam(e.target.value)} required />
           <Button type="submit">Start Match</Button>
         </Form>
       </FormContainer>

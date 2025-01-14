@@ -1,34 +1,33 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";  
 import { render, screen, fireEvent } from '@testing-library/react';
 import AddMatch from './AddMatch';
+import { MatchesContext } from "../../App";
 
 describe('AddMatch', () => {
+  const setMatches = vi.fn();
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
+    <MatchesContext.Provider value={{ matches: [], setMatches }}>
+      {children}
+    </MatchesContext.Provider>
+  );
   it('renders form inputs and button to add a match', () => {
-    render(<AddMatch />);
+    render(<AddMatch />, { wrapper });
     expect(screen.getByPlaceholderText('Home Team')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Away Team')).toBeInTheDocument();
     expect(screen.getByText('Start Match')).toBeInTheDocument();
   });
 
-  it('renders app and adds a match to the list with 0-0 score when the form is submitted', () => {
-    render(<AddMatch />);
-    const homeTeamInput = screen.getByPlaceholderText('Home Team');
-    const awayTeamInput = screen.getByPlaceholderText('Away Team');
-    const startMatchButton = screen.getByText('Start Match');
+  it('submits form with team names', () => {
+    render(<AddMatch />, { wrapper });
+    
+    const homeInput = screen.getByPlaceholderText('Home Team');
+    const awayInput = screen.getByPlaceholderText('Away Team');
+    const submitButton = screen.getByText('Start Match');
 
-    fireEvent.change(homeTeamInput, { target: { value: 'Peru' } });
-    fireEvent.change(awayTeamInput, { target: { value: 'Netherlands' } });
-    fireEvent.click(startMatchButton);
+    fireEvent.change(homeInput, { target: { value: 'Spain' } });
+    fireEvent.change(awayInput, { target: { value: 'Brazil' } });
+    fireEvent.click(submitButton);
 
-    const matchRows = screen.getAllByTestId("match-row");
-    expect(matchRows.length).toBe(6);
-
-    const lastMatchRow = matchRows[5];
-    expect(lastMatchRow).toHaveTextContent("Peru");
-    expect(lastMatchRow).toHaveTextContent("Netherlands");
-
-    const scores = lastMatchRow.querySelectorAll("span");
-    expect(scores[1].textContent).toBe("0");
-    expect(scores[3].textContent).toBe("0");
+    expect(setMatches).toHaveBeenCalledWith([{ homeTeam: 'Spain', awayTeam: 'Brazil', homeScore: 0, awayScore: 0 }]);
   });
 });
