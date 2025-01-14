@@ -40,7 +40,7 @@ function App() {
     <>
       <h1>Football Live Scoreboard</h1>
       <div className='match-container'>
-        <div className='match-row'>
+        <div className='match-row' data-testid='match-row'>
           <h2>Spain</h2>
           <h2>2</h2>
           <span>-</span>
